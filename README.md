@@ -21,11 +21,11 @@ Luis and Cognitive Search need to be added.
     "subscriptionKey": ""
   }
 ```
-(./images/luisconfig.jpg)
+[Luis Configuration](/images/luisconfig.jpg)
 - Create a cognitive search resource. I have added the products.json file to the repository. 
     - Under ProductErrorDialog -> ProductIssue -> Send an Http Requests . There are two requests. Add the **name of your resource** and the **api-key** in the header. 
 
-(./images/cogsearchconfig.jpg)
+[Cognitive Search Config](/images/cogsearchconfig.jpg)
 
 ### Start building your bot
 
