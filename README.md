@@ -55,25 +55,94 @@ You can also extend your bot with code - simply open up the folder that was gene
 Prompt with multi-choice for an array of JSON properties. 
 
 ![Bot Design](images/multichoicepromptbot.jpg)
-<br/> <br/>
+<br /> <br />
 
 - Add Question for Mult-choice. Then Add the bot response. 
-<br/> <br/>
+<br /> <br />
 ![Bot Response](images/multichoiceprompt.jpg)
 ```
 - ${foreach(dialog.productFeatures, item => json(submitActioncard(item.Name, item.Version, item.Feature)))}
 ```
-<br/> <br/>
+>The dialog.productFeatures is JSON returned from an API call. 
+
+#### Adaptive Card
+```
+# submitActioncard(name, version, feature)
+- ```
+{
+    "$schema": "http://adaptivecards.io/schemas/adaptive-card.json",
+    "type": "AdaptiveCard",
+    "version": "1.3",
+    "body": [
+      {
+            "type": "TextBlock",
+            "text": "${name}",
+            "wrap": true,
+            "size": "Small",
+            "isSubtle": true,
+            "spacing": "Small"
+        },
+      {
+            "type": "TextBlock",
+            "text": "${version}",
+            "wrap": true,
+            "size": "Small",
+            "isSubtle": true,
+            "spacing": "Small"
+        },
+        {
+            "type": "TextBlock",
+            "text": "${feature}",
+            "wrap": true,
+            "size": "Small",
+            "color": "Accent",
+            "isSubtle": true,
+            "height": "stretch",
+            "weight": "Lighter",
+            "separator": true
+        },
+        {
+            "type": "Container",
+            "spacing": "Small",
+            "style": "emphasis",
+            "separator": true,
+            "selectAction": {
+                "type": "Action.Submit"
+            },
+            "height": "auto",
+            "isVisible": false
+        },
+        {
+            "type": "ActionSet",
+            "actions": [
+                {
+                    "type": "Action.Submit",
+                    "title": "Select",
+                    "data": {
+                        "Name": "${name}",
+                        "Version": "${version}",
+                        "Feature": "${feature}"
+                     }
+                }
+            ]
+        }
+      
+    ],
+    "minHeight": "175px"
+}
+Add 3 back ticks```
+```
+<br /> <br />
 
 - Add the following code to the **User Input**
 ```
 =turn.activity.value
 ```
-<br/> <br/>
+<br /> <br />
 - Add **Managed Properties** -> **Set Properties** to the flow, after **User Input**
-<br/> <br/>
+<br /> <br />
 ![Set Properties](images/multichoiceafterpromptbotresponse.jpg)
-<br/> <br/>
+<br /> <br />
 
 Now you will see the properties populated in the bot response in the emulator under the user scope. 
 ![User Scope Variables](images/multichoicebotresponse.jpg)
