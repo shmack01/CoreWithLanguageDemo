@@ -1,0 +1,146 @@
+{
+  "$kind": "Microsoft.AdaptiveDialog",
+  "$designer": {
+    "$designer": {
+      "name": "WelcomeDialog",
+      "description": "Greets new and returning users",
+      "id": "8pOkoq"
+    },
+    "name": "WelcomeDialog"
+  },
+  "autoEndDialog": true,
+  "defaultResultProperty": "dialog.result",
+  "triggers": [
+    {
+      "$kind": "Microsoft.OnBeginDialog",
+      "$designer": {
+        "id": "tcqJ5M",
+        "name": "BeginDialog"
+      },
+      "actions": [
+        {
+          "$kind": "Microsoft.IfCondition",
+          "$designer": {
+            "id": "sF0fYv"
+          },
+          "condition": "exists(user.greeted)",
+          "actions": [
+            {
+              "$kind": "Microsoft.SendActivity",
+              "$designer": {
+                "id": "PsAJ3p"
+              },
+              "activity": "${SendActivity_WelcomeReturningUser()}"
+            }
+          ],
+          "elseActions": [
+            {
+              "$kind": "Microsoft.SendActivity",
+              "$designer": {
+                "id": "f3uG2y"
+              },
+              "activity": "${SendActivity_WelcomeNewUser()}"
+            },
+            {
+              "$kind": "Microsoft.SetProperty",
+              "$designer": {
+                "id": "ucFnwQ"
+              },
+              "property": "user.greeted",
+              "value": "true"
+            }
+          ]
+        },
+        {
+          "$kind": "Microsoft.ChoiceInput",
+          "$designer": {
+            "id": "J4A5Am"
+          },
+          "defaultLocale": "en-us",
+          "disabled": false,
+          "maxTurnCount": 3,
+          "alwaysPrompt": false,
+          "allowInterruptions": false,
+          "prompt": "${ChoiceInput_Prompt_J4A5Am()}",
+          "unrecognizedPrompt": "",
+          "invalidPrompt": "",
+          "choiceOptions": {
+            "includeNumbers": false,
+            "inlineOrMore": ", or ",
+            "inlineOr": " or ",
+            "inlineSeparator": ", "
+          },
+          "outputFormat": "value",
+          "style": "heroCard",
+          "recognizerOptions": {
+            "recognizeOrdinals": true,
+            "noValue": false,
+            "noAction": false,
+            "recognizeNumbers": true
+          },
+          "property": "conversation.$helpSelection",
+          "choices": [
+            {
+              "value": "Product Error"
+            },
+            {
+              "value": "Product Information"
+            },
+            {
+              "value": "Account Registration"
+            }
+          ]
+        },
+        {
+          "$kind": "Microsoft.SwitchCondition",
+          "$designer": {
+            "id": "28vKMg"
+          },
+          "condition": "conversation.$helpSelection",
+          "cases": [
+            {
+              "value": "Product Error",
+              "actions": [
+                {
+                  "$kind": "Microsoft.BeginDialog",
+                  "$designer": {
+                    "id": "wboEIP"
+                  },
+                  "activityProcessed": true,
+                  "dialog": "ProductErrorDialog",
+                  "resultProperty": "conversation.$productFound",
+                  "options": {
+                    "product": "",
+                    "feature": "",
+                    "feature2": ""
+                  }
+                }
+              ]
+            },
+            {
+              "value": "Product Information",
+              "actions": [
+                {
+                  "$kind": "Microsoft.BeginDialog",
+                  "$designer": {
+                    "id": "atU8BK"
+                  },
+                  "activityProcessed": true,
+                  "dialog": "ProductInformationDialog"
+                }
+              ]
+            },
+            {
+              "value": "Account Registration"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "$schema": "https://raw.githubusercontent.com/microsoft/BotFramework-Composer/stable/Composer/packages/server/schemas/sdk.schema",
+  "generator": "WelcomeDialog.lg",
+  "id": "WelcomeDialog",
+  "recognizer": "WelcomeDialog.lu.qna",
+  "$Imported": "af4f041fedef6fc782dfdbdc10c87be3"
+}

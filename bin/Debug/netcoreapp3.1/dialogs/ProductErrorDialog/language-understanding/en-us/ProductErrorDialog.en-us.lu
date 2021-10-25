@@ -1,0 +1,57 @@
+
+# ProductIssue
+- have an {action=error} with my {product=socks}}
+- {action=issue} with {product=mountain bike}
+- {product=handle bars} not working
+- {action=trouble} with (product=brakes)
+- have a {action=problem} with {product=tire}
+- need {action=help} with {product=speakers}
+- help resolve issue with {product=usb} {version=3.0}
+
+@ ml product
+@ ml action
+@ ml version
+
+# ProductDescription
+- Nada
+
+# ChoiceInput_Response_CegylR
+- The product is {productName}
+- It is {productName}
+
+@ ml productName
+# TextInput_Response_9snH8W
+- Name is {productName=Klipsch Groove PM20 Computer Speakers}
+- It is my Thinkpad {productName=USB 2.0 Cable}
+- {productName=toner cartridge} for fax machines
+- {productName=Sony Turntable} PSLx350H
+- {productName=iPod with Computer}
+
+@ ml productName
+
+
+# TextInput_Response_kc7yXQ
+- yes my features are {feature1=Read 6-Line Display}
+- {feature1=Under Cabinet Flat Panel}
+- {feature1=Removable Headshell} and {version=DP300F}
+- {version=KXTG6700B}
+- {version=2156} and feature is {feature1=Nikon Rechargeable Li-Ion Battery}
+
+
+@ ml feature1
+@ ml version
+
+
+
+# ChoiceInput_Response_I8wJAA
+> add some expected user responses:
+> - Please remind me to {itemTitle=buy milk}
+> - remind me to {itemTitle}
+> - add {itemTitle} to my todo list
+>
+> entity definitions:
+> @ ml itemTitle
+
+
+# ChoiceInput_Response_KW5mHW
+- Name: {product = Sony VAIO Neoprene Laptop Carrying Case} Version:{version = Black Finish} Feature: {feature = Compatible with VAIO A}

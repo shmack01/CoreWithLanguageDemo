@@ -1,0 +1,28 @@
+[import](common.lg)
+
+# SendActivity_WelcomeReturningUser()
+[Activity
+    Text = ${SendActivity_WelcomeReturningUser_text()}
+]
+
+# SendActivity_WelcomeReturningUser_text()
+- 🖐️ Welcome back! 
+- 🖐️ Hello again! 
+- 🖐️ Good to see you again. 
+- 🖐️ Hey, there! Let's get started.
+- 🖐️ Hello again! 
+# SendActivity_WelcomeNewUser()
+[Activity
+    Text = ${SendActivity_WelcomeNewUser_text()}
+]
+
+# SendActivity_WelcomeNewUser_text()
+- 🖐️ Hey, there! 
+- 🖐️ Hi! 
+- 🖐️ Hello! 
+
+> Imported: ecb31044e0e5c0b54f49870e6872f158
+# ChoiceInput_Prompt_J4A5Am()
+[Activity
+    Text = Please select from one of the following:
+]

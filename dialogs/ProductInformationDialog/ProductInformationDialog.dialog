@@ -1,0 +1,24 @@
+{
+  "$kind": "Microsoft.AdaptiveDialog",
+  "$designer": {
+    "id": "ddtiBR",
+    "name": "ProductInformationDialog",
+    "description": ""
+  },
+  "autoEndDialog": true,
+  "defaultResultProperty": "dialog.result",
+  "triggers": [
+    {
+      "$kind": "Microsoft.OnBeginDialog",
+      "$designer": {
+        "name": "BeginDialog",
+        "description": "",
+        "id": "pHgxQk"
+      },
+      "actions": []
+    }
+  ],
+  "generator": "ProductInformationDialog.lg",
+  "recognizer": "ProductInformationDialog.lu.qna",
+  "id": "ProductInformationDialog"
+}

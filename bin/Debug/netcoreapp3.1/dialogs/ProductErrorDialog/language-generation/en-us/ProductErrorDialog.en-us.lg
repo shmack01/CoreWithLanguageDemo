@@ -1,0 +1,195 @@
+[import](common.lg)
+
+# SendActivity_Tx66x3()
+[Activity
+    Text = Let's help you with a ${conversation.$helpSelection}. Before we do, I need to ask a few questions. 
+]
+
+# SendActivity_RlmhmI()
+[Activity
+    Text = Please describe the issue. 
+]
+
+
+# ChoiceInput_Prompt_CegylR()
+[Activity
+    Text = Please select from the following:
+]
+
+
+# TextInput_Prompt_9snH8W()
+[Activity
+    Text = Please describe your product in more detail. 
+]
+
+# TextInput_Prompt_kc7yXQ()
+[Activity
+    Text = I'm sorry I didn't find your product. Can you provide me features or version so that I can find your product?
+]
+
+# LogAction_Text_Lsro8C()
+[Activity
+    Text = ${LogAction_Text_Lsro8C_text()}
+]
+
+# LogAction_Text_GhTmNP()
+[Activity
+    Text = ${LogAction_Text_GhTmNP_text()}
+]
+
+# LogAction_Text_GhTmNP_text()
+- ```Value of foreach: ${dialog.foreach.value}
+Value of name ${json(dialog.foreach.value).Name}```
+# LogAction_Text_tUhARp()
+[Activity
+    Text = DEBUG: value of features array ${dialog.productFeatures}
+]
+
+# productcardjson(name,version,feature)
+- ```
+{
+    "type": "AdaptiveCard",
+    "$schema": "http://adaptivecards.io/schemas/adaptive-card.json",
+    "version": "1.2",
+    "body": [
+        {
+            "type": "Container",
+            "items": [
+                {
+                    "type": "TextBlock",
+                    "text": "${name}",
+                    "wrap": true,
+                    "weight": "bolder"
+                },
+                {
+                    "type": "TextBlock",
+                    "text": "${version}",
+                    "wrap": true,
+                    "size": "Small",
+                    "isSubtle": true,
+                    "spacing": "Small"
+                },
+                {
+                    "type": "TextBlock",
+                    "text": "${feature}",
+                    "wrap": true,
+                    "size": "Small",
+                    "height": "stretch",
+                    "color": "Accent",
+                    "isSubtle": true
+                }
+            ],
+            "selectAction": {
+                "type": "Action.Submit",
+                "associatedInputs": "auto"
+            },
+            "separator": true
+        }
+    ]
+}
+```
+# LogAction_Text_Lsro8C_text()
+- ```${user.nameList} name list
+Iterate over values: ${foreach(dialog.productFeatures, item => "${jsonStringify(item)}")}```
+
+# ProductsCard()
+- ${foreach(dialog.productFeatures, item => json(submitActioncard(item.Name, item.Version, item.Feature)))}
+
+#ProductsJson
+- ${foreach(dialog.productFeatures, item => json(submitActioncard(item.Name, item.Version, item.Feature)))}
+
+
+# LogAction_Text_uoPv4I()
+[Activity
+    Text = Selected: ${dialog.selectedProduct}
+]
+
+# ChoiceInput_Prompt_KW5mHW()
+[Activity
+    Text = Please select one of the following
+    Attachments = ${ProductsCard()}
+    AttachmentLayout = carousel
+]
+
+# LogAction_Text_YUbdgS()
+[Activity
+    Text = Selected: ${dialog.selected}
+]
+
+# HeroCardWithCustomAction
+[Herocard
+    buttons=${foreach(dialog.productFeatures, item => cardActionTemplate(item.Name, item.Name, item.Version, item.Feature))}
+]
+
+#cardActionTemplate(title, value, version, feature)
+[CardAction
+    title = ${title}
+    type = imback
+    displayTest = ${feature}
+    value = ${value}
+]
+
+# submitActioncard(name, version, feature)
+- ```
+{
+    "$schema": "http://adaptivecards.io/schemas/adaptive-card.json",
+    "type": "AdaptiveCard",
+    "version": "1.3",
+    "body": [
+      {
+            "type": "TextBlock",
+            "text": "${name}",
+            "wrap": true,
+            "size": "Small",
+            "isSubtle": true,
+            "spacing": "Small"
+        },
+      {
+            "type": "TextBlock",
+            "text": "${version}",
+            "wrap": true,
+            "size": "Small",
+            "isSubtle": true,
+            "spacing": "Small"
+        },
+        {
+            "type": "TextBlock",
+            "text": "${feature}",
+            "wrap": true,
+            "size": "Small",
+            "color": "Accent",
+            "isSubtle": true,
+            "height": "stretch",
+            "weight": "Lighter",
+            "separator": true
+        },
+        {
+            "type": "Container",
+            "spacing": "Small",
+            "style": "emphasis",
+            "separator": true,
+            "selectAction": {
+                "type": "Action.Submit"
+            },
+            "height": "auto",
+            "isVisible": false
+        },
+        {
+            "type": "ActionSet",
+            "actions": [
+                {
+                    "type": "Action.Submit",
+                    "title": "Select",
+                    "data": {
+                        "Name": "${name}",
+                        "Version": "${version}",
+                        "Feature": "${feature}"
+                     }
+                }
+            ]
+        }
+      
+    ],
+    "minHeight": "175px"
+}
+```

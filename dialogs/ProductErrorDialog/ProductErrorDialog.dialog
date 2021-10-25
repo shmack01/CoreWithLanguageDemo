@@ -1,0 +1,359 @@
+{
+  "$kind": "Microsoft.AdaptiveDialog",
+  "$designer": {
+    "id": "6sZFFz",
+    "name": "ProductErrorDialog",
+    "description": ""
+  },
+  "autoEndDialog": false,
+  "defaultResultProperty": "dialog.result",
+  "triggers": [
+    {
+      "$kind": "Microsoft.OnBeginDialog",
+      "$designer": {
+        "name": "BeginDialog",
+        "description": "",
+        "id": "r7OBI7"
+      },
+      "actions": [
+        {
+          "$kind": "Microsoft.SendActivity",
+          "$designer": {
+            "id": "Tx66x3"
+          },
+          "activity": "${SendActivity_Tx66x3()}"
+        },
+        {
+          "$kind": "Microsoft.SendActivity",
+          "$designer": {
+            "id": "RlmhmI"
+          },
+          "activity": "${SendActivity_RlmhmI()}"
+        }
+      ]
+    },
+    {
+      "$kind": "Microsoft.OnIntent",
+      "$designer": {
+        "id": "mseOcl",
+        "name": "ProductIssue"
+      },
+      "intent": "ProductIssue",
+      "actions": [
+        {
+          "$kind": "Microsoft.SetProperties",
+          "$designer": {
+            "id": "FHxfiE"
+          },
+          "assignments": [
+            {
+              "value": "=coalesce(@product, $product)",
+              "property": "user.product"
+            },
+            {
+              "property": "user.version",
+              "value": "=coalesce(@version, $version)"
+            },
+            {
+              "property": "user.feature1",
+              "value": "=coalesce(@feature1, $feature2)"
+            },
+            {
+              "property": "user.feature2",
+              "value": "=coalesce(@feature2, $feature2)"
+            },
+            {
+              "property": "user.action",
+              "value": "=coalesce(@action, $action)"
+            },
+            {
+              "property": "user.productName",
+              "value": "=coalesce(@productName, $productName)"
+            },
+            {
+              "property": "user.nameList",
+              "value": "=coalesce(@nameList, $nameList)"
+            },
+            {
+              "property": "user.featureList",
+              "value": "=coalesce(@featureList, $featureList)"
+            },
+            {
+              "property": "user.versionList",
+              "value": "=coalesce(@versionList, $versionList)"
+            },
+            {
+              "property": "user.selectedProduct",
+              "value": "=coalesce(@selectedProduct, $selectedProduct)"
+            }
+          ]
+        },
+        {
+          "$kind": "Microsoft.TextInput",
+          "$designer": {
+            "id": "9snH8W"
+          },
+          "disabled": false,
+          "maxTurnCount": 3,
+          "alwaysPrompt": false,
+          "allowInterruptions": false,
+          "unrecognizedPrompt": "",
+          "invalidPrompt": "",
+          "defaultValueResponse": "",
+          "prompt": "${TextInput_Prompt_9snH8W()}",
+          "property": "user.productName",
+          "value": "=coalesce(@productName, $productName)"
+        },
+        {
+          "$kind": "Microsoft.SetProperty",
+          "$designer": {
+            "id": "5ABNKW"
+          },
+          "value": "=replace(user.productName, \" \", \"~ \")",
+          "property": "user.productName"
+        },
+        {
+          "$kind": "Microsoft.HttpRequest",
+          "$designer": {
+            "id": "9muPfQ"
+          },
+          "resultProperty": "dialog.api_response",
+          "method": "GET",
+          "url": "https://<resource name>.search.windows.net/indexes/azureblob-index-cxcaddlfile/docs?api-version=2020-06-30-Preview&search=${user.productName}~&%24select=Name%2CVersion%2CFeature%2CFeature2%2CFeature3&queryType=full&%24count=true&%24top=5",
+          "headers": {
+            "Content-Type": "application/json",
+            "api-key": "<Your Key>"
+          },
+          "contentType": "application/json",
+          "responseType": "json"
+        },
+        {
+          "$kind": "Microsoft.IfCondition",
+          "$designer": {
+            "id": "2txUHf"
+          },
+          "condition": "dialog.api_response.statusCode == 200",
+          "actions": [
+            {
+              "$kind": "Microsoft.SetProperty",
+              "$designer": {
+                "id": "9bBXSO"
+              },
+              "property": "dialog.productNames",
+              "value": "=jPath(dialog.api_response.content, '$.value..Name')"
+            },
+            {
+              "$kind": "Microsoft.EditArray",
+              "$designer": {
+                "id": "yVOGJS"
+              },
+              "changeType": "push",
+              "value": "None of the above",
+              "itemsProperty": "dialog.productNames"
+            },
+            {
+              "$kind": "Microsoft.ChoiceInput",
+              "$designer": {
+                "id": "CegylR"
+              },
+              "defaultLocale": "en-us",
+              "disabled": false,
+              "maxTurnCount": 3,
+              "alwaysPrompt": false,
+              "allowInterruptions": false,
+              "prompt": "${ChoiceInput_Prompt_CegylR()}",
+              "unrecognizedPrompt": "",
+              "invalidPrompt": "",
+              "defaultValueResponse": "",
+              "choiceOptions": {
+                "includeNumbers": true,
+                "inlineOrMore": ", or ",
+                "inlineOr": " or ",
+                "inlineSeparator": ", "
+              },
+              "property": "user.productName",
+              "value": "=coalesce(@productName, $productName)",
+              "style": "heroCard",
+              "choices": "=${dialog.productNames}"
+            },
+            {
+              "$kind": "Microsoft.SwitchCondition",
+              "$designer": {
+                "id": "NAW5k7"
+              },
+              "condition": "user.productName",
+              "cases": [
+                {
+                  "value": "None of the above",
+                  "actions": [
+                    {
+                      "$kind": "Microsoft.TextInput",
+                      "$designer": {
+                        "id": "kc7yXQ"
+                      },
+                      "disabled": false,
+                      "maxTurnCount": 3,
+                      "alwaysPrompt": false,
+                      "allowInterruptions": false,
+                      "prompt": "${TextInput_Prompt_kc7yXQ()}",
+                      "unrecognizedPrompt": "",
+                      "invalidPrompt": "",
+                      "defaultValueResponse": "",
+                      "property": "user.feature1"
+                    },
+                    {
+                      "$kind": "Microsoft.SetProperty",
+                      "$designer": {
+                        "id": "WE61EA"
+                      },
+                      "value": "=replace(user.feature1, \" \", \"~ \")",
+                      "property": "user.feature1"
+                    },
+                    {
+                      "$kind": "Microsoft.HttpRequest",
+                      "$designer": {
+                        "id": "0DnEo1"
+                      },
+                      "resultProperty": "dialog.api_response",
+                      "method": "GET",
+                      "url": "https://<resource name>.search.windows.net/indexes/azureblob-index-cxcaddlfile/docs?api-version=2020-06-30-Preview&search=${user.feature1}~&%24select=Name,Version%2CFeature%2CFeature2%2CFeature3&queryType=full&%24count=true&%24top=5",
+                      "headers": {
+                        "Content-Type": "application/json",
+                        "api-key": "<Your Key>"
+                      },
+                      "contentType": "application/json",
+                      "responseType": "json"
+                    },
+                    {
+                      "$kind": "Microsoft.SetProperty",
+                      "$designer": {
+                        "id": "jPX7gW"
+                      },
+                      "property": "dialog.productFeatures",
+                      "value": "=jPath(dialog.api_response.content, '$.value')"
+                    },
+                    {
+                      "$kind": "Microsoft.LogAction",
+                      "$designer": {
+                        "id": "tUhARp"
+                      },
+                      "text": "${LogAction_Text_tUhARp()}",
+                      "label": "DEBUG",
+                      "traceActivity": true
+                    },
+                    {
+                      "$kind": "Microsoft.Foreach",
+                      "$designer": {
+                        "id": "ZGAUOZ"
+                      },
+                      "index": "dialog.foreach.index",
+                      "value": "dialog.foreach.value",
+                      "itemsProperty": "dialog.productFeatures",
+                      "actions": [
+                        {
+                          "$kind": "Microsoft.EditArray",
+                          "$designer": {
+                            "id": "Sg6bEh"
+                          },
+                          "changeType": "push",
+                          "itemsProperty": "user.nameList",
+                          "value": "=json(dialog.foreach.value).Name"
+                        },
+                        {
+                          "$kind": "Microsoft.LogAction",
+                          "$designer": {
+                            "id": "GhTmNP"
+                          },
+                          "traceActivity": true,
+                          "text": "${LogAction_Text_GhTmNP()}",
+                          "label": "DEBUG"
+                        }
+                      ]
+                    },
+                    {
+                      "$kind": "Microsoft.LogAction",
+                      "$designer": {
+                        "id": "Lsro8C"
+                      },
+                      "traceActivity": true,
+                      "label": "DEBUG",
+                      "text": "${LogAction_Text_Lsro8C()}"
+                    },
+                    {
+                      "$kind": "Microsoft.LogAction",
+                      "$designer": {
+                        "id": "YUbdgS"
+                      },
+                      "text": "${LogAction_Text_YUbdgS()}",
+                      "traceActivity": true,
+                      "label": "DEBUG"
+                    },
+                    {
+                      "$kind": "Microsoft.ChoiceInput",
+                      "$designer": {
+                        "id": "KW5mHW"
+                      },
+                      "defaultLocale": "en-us",
+                      "disabled": false,
+                      "maxTurnCount": 3,
+                      "alwaysPrompt": false,
+                      "allowInterruptions": true,
+                      "unrecognizedPrompt": "",
+                      "invalidPrompt": "",
+                      "prompt": "${ChoiceInput_Prompt_KW5mHW()}",
+                      "choiceOptions": {
+                        "includeNumbers": true,
+                        "inlineOrMore": ", or ",
+                        "inlineOr": " or ",
+                        "inlineSeparator": ", "
+                      },
+                      "style": "none",
+                      "property": "user.selectedProduct",
+                      "choices": "=flatten(foreach(dialog.productFeatures, item => foreach(item, choice => choice.value)))",
+                      "value": "=turn.activity.value",
+                      "recognizerOptions": {
+                        "recognizeOrdinals": true,
+                        "recognizeNumbers": true
+                      }
+                    },
+                    {
+                      "$kind": "Microsoft.SetProperties",
+                      "$designer": {
+                        "id": "QJB5t7"
+                      },
+                      "assignments": [
+                        {
+                          "property": "user.version",
+                          "value": "=@Version"
+                        },
+                        {
+                          "property": "user.product",
+                          "value": "=@Name"
+                        },
+                        {
+                          "value": "=@Feature",
+                          "property": "user.feature1"
+                        }
+                      ]
+                    },
+                    {
+                      "$kind": "Microsoft.LogAction",
+                      "$designer": {
+                        "id": "uoPv4I"
+                      },
+                      "text": "${LogAction_Text_uoPv4I()}",
+                      "label": "DEBUG"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "generator": "ProductErrorDialog.lg",
+  "recognizer": "ProductErrorDialog.lu.qna",
+  "id": "ProductErrorDialog"
+}

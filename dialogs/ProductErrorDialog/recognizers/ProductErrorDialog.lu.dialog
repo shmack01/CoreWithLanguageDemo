@@ -1,0 +1,8 @@
+{
+  "$kind": "Microsoft.MultiLanguageRecognizer",
+  "id": "LUIS_ProductErrorDialog",
+  "recognizers": {
+    "en-us": "ProductErrorDialog.en-us.lu",
+    "": "ProductErrorDialog.en-us.lu"
+  }
+}
