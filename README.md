@@ -48,3 +48,32 @@ From Package Manager in Composer you can find useful packages to help add additi
 ### Extend your bot with code
 
 You can also extend your bot with code - simply open up the folder that was generated for you in the location you chose during the creation process with your favorite IDE (like Visual Studio). You can do things like create custom actions that can be used during dialog flows, create custom middleware to pre-process (or post-process) messages, and more. See [our documentation](https://aka.ms/bf-extend-with-code) for more information.
+
+
+### Tidbits
+
+Prompt with multi-choice for an array of JSON properties. 
+
+![Bot Design](images/multichoicepromptbot.jpg)
+<br/> <br/>
+
+- Add Question for Mult-choice. Then Add the bot response. 
+<br/> <br/>
+![Bot Response](images/multichoiceprompt.jpg)
+```
+- ${foreach(dialog.productFeatures, item => json(submitActioncard(item.Name, item.Version, item.Feature)))}
+```
+<br/> <br/>
+
+- Add the following code to the **User Input**
+```
+=turn.activity.value
+```
+<br/> <br/>
+- Add **Managed Properties** -> **Set Properties** to the flow, after **User Input**
+<br/> <br/>
+![Set Properties](images/multichoiceafterpromptbotresponse.jpg)
+<br/> <br/>
+
+Now you will see the properties populated in the bot response in the emulator under the user scope. 
+![User Scope Variables](images/multichoicebotresponse.jpg)
