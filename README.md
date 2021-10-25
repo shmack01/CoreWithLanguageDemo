@@ -6,7 +6,7 @@ This bot project was created using the Core Bot with Azure Language Understandin
 
 ### Configuration
 
-Luis and Cognitive Search need to be added. 
+Luis and Cognitive Search resources need to be added. 
 <br/> <br/>
 
 - Set up LUIS. The screenshot below will show where these settings are located. You can also use the Advance settings to modify the json configuration file directly.
@@ -150,34 +150,31 @@ Add 3 back ticks```
 Now you will see the properties populated in the bot response in the emulator under the user scope. 
 ![User Scope Variables](images/multichoicebotresponse.jpg)
 
-### Resources
+## Resources
 
 [Project Conversation Learner](https://www.microsoft.com/en-us/research/project/conversation-learner/)
 
-Bot Composer
-[Introduction](https://docs.microsoft.com/en-us/composer/introduction?tabs=v2x)
+[Bot Composer Introduction](https://docs.microsoft.com/en-us/composer/introduction?tabs=v2x)
 
-The key parts of the Bot Composer are the Dialogs, which have the User Inputs and Bot Responses in the left-hand menu. The Quickstart tutorials will help with gaining familiarity with the tool. [Click here](https://docs.microsoft.com/en-us/composer/quickstart-create-bot)
+The key parts of the Bot Composer are the Dialogs, which have the User Inputs and Bot Responses in the left-hand menu. The Quickstart tutorials will help with gaining familiarity with the tool [here](https://docs.microsoft.com/en-us/composer/quickstart-create-bot).
 
-You can use templates to get started: [Click here](https://docs.microsoft.com/en-us/composer/templates/enterprise-assistant-overview)
+[Templates to get started](https://docs.microsoft.com/en-us/composer/templates/enterprise-assistant-overview)
 
 There are several samples that you can use to develop various [components](https://github.com/microsoft/botbuilder-samples)
 
 
 Bot Framework Adaptive Tools - [VS Code Extension](https://marketplace.visualstudio.com/items?itemName=BotBuilder.bot-framework-adaptive-tools)
 
-Adaptive Expressions - [Prebuilt functions](https://docs.microsoft.com/en-us/azure/bot-service/adaptive-expressions/adaptive-expressions-prebuilt-functions?view=azure-bot-service-4.0#jPath)
-
-[Also here](https://docs.microsoft.com/en-us/azure/bot-service/adaptive-expressions/adaptive-expressions-prebuilt-functions?view=azure-bot-service-4.0#conversion-functions)
+Adaptive Expressions - [Prebuilt functions](https://docs.microsoft.com/en-us/azure/bot-service/adaptive-expressions/adaptive-expressions-prebuilt-functions?view=azure-bot-service-4.0#jPath) and [here](https://docs.microsoft.com/en-us/azure/bot-service/adaptive-expressions/adaptive-expressions-prebuilt-functions?view=azure-bot-service-4.0#conversion-functions)
 
 [Testing Expressions](https://playgroundclient.azurewebsites.net)
 
 **Adaptive Cards** 
 
-[Samples](https://adaptivecards.io/samples/)
-[Designer](https://adaptivecards.io/designer/)
+- [Samples](https://adaptivecards.io/samples/)
+- [Designer](https://adaptivecards.io/designer/)
 
 **Cognitive Search** 
-[Salesforce](https://docs.microsoft.com/en-us/azure/search/search-how-to-index-power-query-data-sources)
-[Fuzzy Search](https://docs.microsoft.com/en-us/azure/search/search-query-fuzzy)
-[Search Examples](https://docs.microsoft.com/en-us/azure/search/search-query-lucene-examples)
+- [Salesforce](https://docs.microsoft.com/en-us/azure/search/search-how-to-index-power-query-data-sources)
+- [Fuzzy Search](https://docs.microsoft.com/en-us/azure/search/search-query-fuzzy)
+- [Search Examples](https://docs.microsoft.com/en-us/azure/search/search-query-lucene-examples)
