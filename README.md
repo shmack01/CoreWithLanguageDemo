@@ -4,6 +4,29 @@ This bot project was created using the Core Bot with Azure Language Understandin
 
 ## Next steps
 
+### Configuration
+
+Luis and Cognitive Search need to be added. 
+<br/> <br/>
+
+- Set up LUIS. The screenshot below will show where these settings are located. You can also use the Advance settings to modify the json configuration file directly.
+```
+"luis": {
+    "name": "",
+    "authoringKey": ""
+  },
+  "qna": {
+    "qnaRegion": "westus",
+    "endpointKey": "",
+    "subscriptionKey": ""
+  }
+```
+(./images/luisconfig.jpg)
+- Create a cognitive search resource. I have added the products.json file to the repository. 
+    - Under ProductErrorDialog -> ProductIssue -> Send an Http Requests . There are two requests. Add the **name of your resource** and the **api-key** in the header. 
+
+(./images/cogsearchconfig.jpg)
+
 ### Start building your bot
 
 Composer can help guide you through getting started building your bot. From your bot settings page (the wrench icon on the left navigation rail), click on the rocket-ship icon on the top right for some quick navigation links.

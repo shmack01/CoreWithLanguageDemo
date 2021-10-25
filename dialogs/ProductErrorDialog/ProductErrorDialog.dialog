@@ -122,7 +122,7 @@
           "url": "https://<resource name>.search.windows.net/indexes/azureblob-index-cxcaddlfile/docs?api-version=2020-06-30-Preview&search=${user.productName}~&%24select=Name%2CVersion%2CFeature%2CFeature2%2CFeature3&queryType=full&%24count=true&%24top=5",
           "headers": {
             "Content-Type": "application/json",
-            "api-key": "<Your Key>"
+            "api-key": " <Your Key> "
           },
           "contentType": "application/json",
           "responseType": "json"
